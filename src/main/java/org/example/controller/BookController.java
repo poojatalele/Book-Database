@@ -1,14 +1,14 @@
-package org.example.service;
+package org.example.controller;
 
 import org.example.model.Book;
 import org.example.repository.BookRepository;
 
 import java.util.*;
 
-public class BookService {
+public class BookController {
     private final BookRepository repo;
 
-    public BookService(BookRepository repo) {
+    public BookController(BookRepository repo) {
         this.repo = repo;
     }
 
