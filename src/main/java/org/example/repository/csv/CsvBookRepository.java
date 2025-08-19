@@ -53,23 +53,31 @@ public class CsvBookRepository implements BookRepository {
         return Collections.unmodifiableList(cache);
     }
 
-
     @Override
     public List<Book> findByAuthor(String author) {
-        String a = author == null ? "" : author.trim().toLowerCase();
-        return cache.stream()
-                .filter(b -> b.getAuthor() != null && b.getAuthor().toLowerCase().equals(a))
-                .collect(Collectors.toList());
+        List<Book> result = new ArrayList<>();
+        if (author == null) {
+            return result;
+        }
+        String a = author.trim().toLowerCase();
+        for (Book b : cache) {
+            if (b.getAuthor() != null && b.getAuthor().trim().toLowerCase().equals(a)) {
+                result.add(b);
+            }
+        }
+        return result;
     }
-
 
     @Override
     public List<Book> findByExactRating(double rating) {
-        return cache.stream()
-                .filter(b -> Double.compare(b.getUserRating(), rating) == 0)
-                .collect(Collectors.toList());
+        List<Book> result = new ArrayList<>();
+        for (Book b : cache) {
+            if (Double.compare(b.getUserRating(), rating) == 0) {
+                result.add(b);
+            }
+        }
+        return result;
     }
-
     @Override
     public Map<String, Integer> findBooksAndPricesByAuthor(String author) {
         Map<String, Integer> result = new HashMap<>();
